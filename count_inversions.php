@@ -10,9 +10,9 @@ function concat_merge($a, $b){
     $n = $a_length + $b_length;
     $i = $j = 0;
     for ($m=0; $m<$n; $m++){
-        if (($i< $a_length && $a[$i] < $b[$j]) || $j >= $b_length) {
+        if ($j >= $b_length || ($i< $a_length && $a[$i] < $b[$j])) {
             $res[$m] = $a[$i++];
-        } else if(($j<$b_length && $a[$i] > $b[$j]) || $i >= $a_length) {
+        } else if($i >= $a_length || ($j<$b_length && $a[$i] > $b[$j])) {
             $res[$m] = $b[$j++];
             $inversions += ($a_length - $i);
         }
@@ -43,20 +43,25 @@ function simple_test($data) {
 
 print_r(array(time()));
 
-$data = file("IntegerArray.txt");
 $data = array();
-for ($i=1;$i<=10;$i++){
-    $data[] = $i;
-}
-shuffle($data);
 
-print_r($data);
+$data_temp = file("IntegerArray.txt");
+foreach($data_temp as $el) {
+    $data[] = (int)$el;
+} 
+//for ($i=1;$i<=755;$i++){
+//    $data[] = $i;
+//}
+//shuffle($data);
+
+//print_r($data);
 print_r(count($data));
 $sorted = concat_sort($data, 0, count($data) );
 print_r(array(time(),$inversions));
+print_r(count($sorted));
 
-print_r(array(simple_test($data)));
-print_r(array(time()));
+//print_r(array(simple_test($data)));
+//print_r(array(time()));
 
 
 ?>
