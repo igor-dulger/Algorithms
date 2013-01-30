@@ -1,5 +1,5 @@
 <?php
-aaa=1
+
 function concat_merge($a, $b){
     $res = array();
 //print_r(array($a, $b));
