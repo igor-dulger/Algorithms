@@ -8,9 +8,9 @@ function concat_merge($a, $b){
     $n = $a_length + $b_length;
     $i = $j = 0;
     for ($m=0; $m<$n; $m++){
-        if (($i< $a_length && $a[$i] < $b[$j]) || $j >= $b_length) {
+        if ($j >= $b_length || ($i< $a_length && $a[$i] < $b[$j])) {
             $res[$m] = $a[$i++];
-        } else if(($j<$b_length && $a[$i] > $b[$j]) || $i >= $a_length) {
+        } else if($i >= $a_length || ($j<$b_length && $a[$i] > $b[$j])) {
             $res[$m] = $b[$j++];
         }
     }
