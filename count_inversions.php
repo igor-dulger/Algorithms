@@ -41,27 +41,7 @@ function simple_test($data) {
     return $res;
 }
 
-print_r(array(time()));
-
-$data = array();
-
-$data_temp = file("IntegerArray.txt");
-foreach($data_temp as $el) {
-    $data[] = (int)$el;
-} 
-//for ($i=1;$i<=755;$i++){
-//    $data[] = $i;
-//}
-//shuffle($data);
-
-//print_r($data);
-print_r(count($data));
 $sorted = concat_sort($data, 0, count($data) );
 print_r(array(time(),$inversions));
-print_r(count($sorted));
-
-//print_r(array(simple_test($data)));
-//print_r(array(time()));
-
 
 ?>

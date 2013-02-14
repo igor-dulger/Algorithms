@@ -24,8 +24,6 @@ function concat_sort(&$data, $start, $len){
     return concat_merge($a, $b);
 }
 
-$data = array(3,5,7,9,6,1,8,2,10);
-print_r($data);
 $sorted = concat_sort($data, 0, count($data));
 print_r($sorted);
 ?>
