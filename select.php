@@ -5,6 +5,7 @@ function swap(&$data, $a, $b){
     $data[$a] = $data[$b];
     $data[$b] = $t;
 }
+
 function partitionate(&$data, $left, $right){
     global $work;
     $work += ($right - $left) - 1;
