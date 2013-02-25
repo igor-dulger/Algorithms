@@ -10,15 +10,15 @@ $data = array();
 //    $data[] = (int)$el;
 //}
 
-$data = array(2, 8, 9, 3, 7, 5, 10, 1, 6, 4);
-$data = array();
-for ($i=1;$i<=100;$i++){
-//for ($i=100;$i>=1;$i--){
-    $data[] = $i;
-}
-shuffle($data);
 
-include "select.php";
+//$data = array();
+//for ($i=1;$i<=100;$i++){
+////for ($i=100;$i>=1;$i--){
+//    $data[] = $i;
+//}
+//shuffle($data);
+
+include "graph_zones.php";
 //include "merge_sort.php";
 /*
  * To change this template, choose Tools | Templates
