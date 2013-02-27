@@ -23,7 +23,7 @@ $data = array(
     "11 4",
 );
 
-$data = file("data/SCC.txt");
+//$data = file("data/SCC.txt");
 //$data = file("data/zones.txt");
 
 //print_r($data);

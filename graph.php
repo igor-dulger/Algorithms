@@ -33,15 +33,15 @@ function load_directed_graph($data) {
         $v_i = array_shift($list);
         $vs[$v_i]['exp'] = false;
         Foreach ($list as $v) {
-            if (!isset($e_uniq[$v_i."_".$v])) {
-                $es[++$e_i] = array($v_i, $v);
-                $e_uniq[$v_i."_".$v] = $e_i;
+            //if (!isset($e_uniq[$v_i."_".$v])) {
+//                $es[++$e_i] = array($v_i, $v);
+//                $e_uniq[$v_i."_".$v] = $e_i;
                 $vs[$v_i]['edges'][$e_i] = true;
-                $vs[$v]['edges'][$e_i] = true;
-            }
+//                $vs[$v]['edges'][$e_i] = true;
+            //}
         }
     }
-
+    print($v_i);
     return array($vs, $es);
 }
 
