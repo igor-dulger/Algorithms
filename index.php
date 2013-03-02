@@ -12,13 +12,13 @@ $data = array();
 
 
 //$data = array();
-//for ($i=1;$i<=100;$i++){
-////for ($i=100;$i>=1;$i--){
-//    $data[] = $i;
-//}
-//shuffle($data);
+for ($i=1;$i<=15;$i++){
+//for ($i=100;$i>=1;$i--){
+    $data[] = $i;
+}
+shuffle($data);
 
-include "graph_zones.php";
+include "heap.php";
 //include "merge_sort.php";
 /*
  * To change this template, choose Tools | Templates
