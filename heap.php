@@ -2,8 +2,13 @@
 class Heap {
     
     private $data;
+    private $type = 'int';
+    private $weight = 'weight';
             
-    public function __construct($data = array()) {
+    public function __construct($data = array(), $type = 'int', $weight = 'weight') {
+        if (!in_array($type, array("int", "object"))) die("Invalid type [$type]");
+        $this->type = $type;
+        $this->weight = $weight;
         foreach ($data as $el){
             $this->insert($el);
         }
@@ -19,12 +24,63 @@ class Heap {
     
     public function insert($el) {
         $this->data[] = $el;
-        $i = count($this->data)-1;
-        while ($i > 0 && $this->data[$i] < $this->data[$this->getParentPos($i)]) {
-            $t = $this->data[$i];
-            $this->data[$i] = $this->data[$this->getParentPos($i)];
-            $this->data[$this->getParentPos($i)] = $t;
+        $this->up(count($this->data)-1);
+    }
+    
+    public function getTop() {
+        $result = array_shift($this->data);
+        $last = array_pop($this->data);
+        array_unshift($this->data, $last);
+        $this->down(0);
+        return $result;
+    }
+    
+    private function swap($l, $r) {
+        $t = $this->data[$l];
+        $this->data[$l] = $this->data[$r];
+        $this->data[$r] = $t;
+    }
+    
+    private function up($i) {
+        while ($i > 0 && $this->cmp($i, $this->getParentPos($i)) == 1) {
+            $this->swap($i, $this->getParentPos($i));
             $i = $this->getParentPos($i);
+        }
+    }
+    
+    private function cmp($l, $r) {
+        if ($this->type == 'int') {
+            $l_v = $this->data[$l];
+            $r_v = $this->data[$r];
+        } else if($this->type == 'object') {
+            $l_v = $this->data[$l]->{$this->weight};
+            $r_v = $this->data[$r]->{$this->weight};
+        } 
+        
+        if ($l_v < $r_v) {
+            return 1;
+        } else if ($l_v > $r_v) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+    
+    private function down($i) {
+        list($l, $r) = $this->getChildrenPos($i);
+        if (
+           isset($this->data[$l]) && $this->cmp($l,$i) == 1
+           || 
+           isset($this->data[$r]) && $this->cmp($r,$i) == 1
+           ) {
+            if(isset($this->data[$r])) {
+                $t_i = ($this->cmp($l, $r) == 1) ? $l : $r;
+            } else if(isset($this->data[$l])){
+                $t_i = $l;
+            } 
+            
+            $this->swap($i, $t_i);
+            $this->down($t_i);
         }
     }
     
@@ -34,7 +90,7 @@ class Heap {
         $prefix = str_repeat(" ", (count($this->data)+1)); 
         foreach ($this->data as $el){
             $i++;
-            $result .= $prefix.$el;
+            $result .= $prefix.($this->type == 'int' ? $el : $el->{$this->weight});
             if ($i == pow(2, $level)){
                 $level++;
                 $prefix = str_repeat("-", floor((count($this->data)+1)*2/(pow(2, $level)+1)) ); 
@@ -47,6 +103,17 @@ class Heap {
     }
 }
 
-$heap = new Heap($data);
+foreach ($data as $id) {
+$v =  new stdClass();
+    $v->id = $id +2;
+    $v->w = $id;
+    $d[] = $v;
+}
+
+$heap = new Heap($d, "object", "id");
+
 print($heap);
+print_r($heap->getTop());
+print($heap);
+
 ?>
