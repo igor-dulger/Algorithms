@@ -18,7 +18,7 @@ for ($i=1;$i<=15;$i++){
 }
 shuffle($data);
 
-include "heap.php";
+include "dijkstraShortPath.php";
 //include "merge_sort.php";
 /*
  * To change this template, choose Tools | Templates
