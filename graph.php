@@ -168,7 +168,7 @@ namespace graph\dijkstra {
         $e_uniq = array();
         foreach ($data as $id => $string) {
             $list = preg_split("/\s+/", trim($string));
-            $v_i = array_shift($list);
+            $v_i = (int)array_shift($list);
             $vs[$v_i] = 0;
             Foreach ($list as $v) {
                 list($v, $dist) = explode(",", $v);
@@ -190,18 +190,20 @@ namespace graph\dijkstra {
     }
 
     function move($ed, &$state) {
+//print_r("MOVE ".$ed);
         if (isset($state['x'][$state['e'][$ed]['l']])){
-            $short = $state['len'][$state['e'][$ed]['l']];
-            $target = $state['e'][$ed]['r'];
+            $from = $state['e'][$ed]['l'];
+            $to = $state['e'][$ed]['r'];
         } else {
-            $short = $state['len'][$state['e'][$ed]['r']];
-            $target = $state['e'][$ed]['l'];
+            $from = $state['e'][$ed]['r'];
+            $to = $state['e'][$ed]['l'];
         }
-        $state['x'][$target] = 0;
-        unset($state['v-x'][$target]);
+        $state['x'][$to] = 0;
+        unset($state['v-x'][$to]);
 
-        $state['len'][$el] = $short + $state['e'][$ed]['dist'];
-        $state['path'][$el] .= " -> $target";
+        $state['len'][$to] = $state['len'][$from] + $state['e'][$ed]['dist'];
+        $state['path'][$to] = $state['path'][$from] . " -> $to";
+        unset($state['e'][$ed]);
     }
 
     function crosses_frontier($ed, &$state) {

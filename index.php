@@ -12,11 +12,11 @@ $data = array();
 
 
 //$data = array();
-for ($i=1;$i<=15;$i++){
-//for ($i=100;$i>=1;$i--){
-    $data[] = $i;
-}
-shuffle($data);
+//for ($i=1;$i<=15;$i++){
+////for ($i=100;$i>=1;$i--){
+//    $data[] = $i;
+//}
+//shuffle($data);
 
 include "dijkstraShortPath.php";
 //include "merge_sort.php";
