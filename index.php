@@ -21,9 +21,3 @@ foreach($data_temp as $el) {
 //shuffle($data);
 
 include "median.php";
-//include "merge_sort.php";
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
