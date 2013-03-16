@@ -1,14 +1,17 @@
 <?php
+namespace Heap {
 class Heap {
     
-    private $data;
+    private $data = array();
     private $type = 'int';
     private $weight = 'weight';
+    private $direction = 'min';
             
-    public function __construct($data = array(), $type = 'int', $weight = 'weight') {
+    public function __construct($data = array(), $direction = 'min', $type = 'int', $weight = 'weight') {
         if (!in_array($type, array("int", "object"))) die("Invalid type [$type]");
         $this->type = $type;
         $this->weight = $weight;
+        $this->direction = $direction;
         foreach ($data as $el){
             $this->insert($el);
         }
@@ -27,12 +30,20 @@ class Heap {
         $this->up(count($this->data)-1);
     }
     
-    public function getTop() {
+    public function extractTop() {
         $result = array_shift($this->data);
         $last = array_pop($this->data);
         array_unshift($this->data, $last);
         $this->down(0);
         return $result;
+    }
+    
+    public function getTop() {
+        return $this->data[0];
+    }
+    
+    public function getSize() {
+        return count($this->data);
     }
     
     private function swap($l, $r) {
@@ -58,9 +69,9 @@ class Heap {
         } 
         
         if ($l_v < $r_v) {
-            return 1;
+            return ($this->direction == 'min') ? 1 : -1;
         } else if ($l_v > $r_v) {
-            return -1;
+            return ($this->direction == 'min') ? -1 : 1;
         } else {
             return 0;
         }
@@ -102,18 +113,11 @@ class Heap {
         return $result;
     }
 }
-
-foreach ($data as $id) {
-$v =  new stdClass();
-    $v->id = $id +2;
-    $v->w = $id;
-    $d[] = $v;
 }
-
-$heap = new Heap($d, "object", "id");
-
-print($heap);
-print_r($heap->getTop());
-print($heap);
-
+//foreach ($data as $id) {
+//$v =  new stdClass();
+//    $v->id = $id +2;
+//    $v->w = $id;
+//    $d[] = $v;
+//}
 ?>
